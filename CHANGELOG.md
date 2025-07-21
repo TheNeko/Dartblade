@@ -13,13 +13,13 @@ Este projeto segue o formato [Keep a Changelog](https://keepachangelog.com/pt-BR
 
 ## [Não publicado]
 - Adicionado itens
-- Adicionado mosntros
+- Adicionado monstros
 - Removido o Betinha
 - Removido o sexo
 
 ---
 
-## [1.0.0] - 2025-07-12
+## [1.0.0-R] - 2025-07-21
 ### 🚀 Lançamento inicial
 - Adicionado Campo de nome do personagem
 
