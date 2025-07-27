@@ -5,6 +5,7 @@ import 'dart:async';
 Future<void> digitar(String texto, int delayMs) async {
   for (var letra in texto.runes) {
     stdout.write(String.fromCharCode(letra));
+
     await Future.delayed(Duration(milliseconds: delayMs));
   }
   print('');
@@ -46,7 +47,7 @@ String? armaPersonagem(){
 
   if (armaSelecionada == null || armaSelecionada.isEmpty){
     print("Digite apenas números entre 1 a 6, SEU MACACO!");
-    armaPersonagem();
+    return armaPersonagem();
   }
   switch (armaSelecionada) {
     case "1":
@@ -62,11 +63,34 @@ String? armaPersonagem(){
     case "6":
       return armaSelecionada = "❖ Pix da Sorte";
     default:
+    //arma do ren bussula de hentão
+    //arma do kevin amuleto da imortalidade até conseguir uma casa no rpg
+    //arma do leo discurso no jutsu
       print("Digite apenas números entre 1 a 6, SEU MACACO!");
       armaSelecionada = null;
       armaPersonagem();
   }
 
+}
+
+String? racaPersonagem(){
+  print("Escolha a raça do seu personagem: \n1- Elfo hp:10 atk:2 int:x1.5\n2- Gato Humanoide hp:10 atk:3 dex:+2\n3- Gnomo(bota no hard) hp:5 atk:1 int:x0.5 dex:-4 def:1");
+  String? racaescolhida = stdin.readLineSync();
+  if(racaescolhida ==null || racaescolhida.isEmpty){
+    print("Digite números entre 1 a 3, seu bobalhão");
+    racaescolhida = null;
+    return racaPersonagem();
+  }
+  switch(racaescolhida){
+    case "1":
+      return racaescolhida = "Elfo 🤓";
+    case "2":
+      return racaescolhida = "Gato Humanoide 😼";
+    case "3":
+      return racaescolhida = "Gnomo 🤮";
+    default:
+  }
+  
 }
 
 void limparConsole(){
@@ -76,12 +100,13 @@ void main() async{
   limparConsole();
   await digitar("Bem vindo ao DartBlade ! \nAqui você encontrará muitas Bistecas e referêcias ao segissu ( ͡° ͜ʖ ͡°)", 35);
   var perso1 = nomePersonagem();
-
-  await digitar("Vamos começar sua jornada $perso1! MASSS, POREM, ENTRETANTO, TODAVIA...\nPreciso que você escolha um item primeiro.", 35);
-  await digitar("PS: Recomendo que pegue a Espada do BETINHA, item muito bom (CONFIA)", 50);
+  var racaProta = racaPersonagem();
+  await digitar("Vamos começar sua jornada $perso1! MASSS, POREM, ENTRETANTO, TODAVIA...", 35);
+  await digitar("Preciso que você escolha um item primeiro.", 35);
+  await digitar("PS: Recomendo que pegue a Espada do BETINHA, item muito bom (CONFIA)", 70);
   var armaDoProta = armaPersonagem();
   await digitar("", 1000);
   limparConsole();
   await digitar("", 1000);
-  await digitar("Otimo! agora $perso1 com $armaDoProta parte numa jornada mt bisteca", 50);
+  await digitar("Otimo! agora $perso1, um $racaProta com $armaDoProta parte numa jornada mt bisteca", 50);
 }

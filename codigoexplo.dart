@@ -1,181 +1,150 @@
-import 'dart:io';
-import 'dart:math';
-
-String escolherArma() {
-  String? armaEscolhida;
-
-  while (armaEscolhida == null) {
-    print("1 - Espada longa");
-    print("2 - Machado duplo");
-    print("3 - Adagas");
-    print("4 - Cajado de mago");
-
-    var armaEscolhidaPeloUsuario = stdin.readLineSync();
-
-    switch (armaEscolhidaPeloUsuario) {
-      case '1':
-        armaEscolhida = 'Espada longa';
-        break;
-      case '2':
-        armaEscolhida = 'Machado duplo';
-        break;
-      case '3':
-        armaEscolhida = 'Adagas';
-        break;
-      case '4':
-        armaEscolhida = 'Cajado de mago';
-        break;
-      default:
-        print("Escolha apenas uma das armas abaixo:");
-    }
-  }
-
-  return armaEscolhida;
-}
-
-String rolarDado() {
-  // Random().nextInt(valorMaximo) retorna um valor aleatório maior que zero e menor que o valorMaximo
-  var rolagemDeDado = Random().nextInt(5);
-  if (rolagemDeDado == 0) {
-    return '1';
-  }
-  return rolagemDeDado.toString();
-}
-
-String mapearCaminhoEscolhido(String caminhoEscolhidoPeloUsuario) {
-  String caminhoEscolhido = '';
-
-  switch (caminhoEscolhidoPeloUsuario) {
-    case '1':
-      caminhoEscolhido = 'Floresta sombria';
-      break;
-    case '2':
-      caminhoEscolhido = 'Vale nevado';
-      break;
-    case '3':
-      caminhoEscolhido = 'Cavernas profundas';
-      break;
-    case '4':
-      caminhoEscolhido = 'Dacotalandia';
-      break;
-  }
-
-  return caminhoEscolhido;
-}
-
-String escolherCaminho() {
-  print("Jovem aventureiro, escolha o seu caminho:");
-
-  String? caminhoEscolhido;
-
-  while (caminhoEscolhido == null) {
-    print("1 - Floresta sombria");
-    print("2 - Vale nevado");
-    print("3 - Cavernas profundas");
-    print("4 - Dacotalandia");
-    print("5 - Fica na mão de Deus");
-
-    var caminhoEscolhidoPeloUsuario = stdin.readLineSync();
-
-    switch (caminhoEscolhidoPeloUsuario) {
-      case '1':
-        caminhoEscolhido = 'Floresta sombria';
-        print("Parabéns, você escolheu o caminho $caminhoEscolhido");
-        break;
-      case '2':
-        caminhoEscolhido = 'Vale nevado';
-        print("Parabéns, você escolheu o caminho $caminhoEscolhido");
-        break;
-      case '3':
-        caminhoEscolhido = 'Cavernas profundas';
-        print("Parabéns, você escolheu o caminho $caminhoEscolhido");
-        break;
-      case '4':
-        caminhoEscolhido = 'Dacotalandia';
-        print("Parabéns, você escolheu o caminho $caminhoEscolhido");
-        break;
-      case '5':
-        var dado = rolarDado();
-        caminhoEscolhido = mapearCaminhoEscolhido(dado);
-        print(
-          "Você fecha os olhos e roga para uma entidade misteriosa guiar o seu caminho,",
-        );
-        print("o caminho escolhido foi $caminhoEscolhido");
-        break;
-      default:
-        print("Escolha somente um dos valores abaixo:");
-    }
-  }
-
-  return caminhoEscolhido;
-}
-
-bool confirmarNomeEscolhido(String nomeEscolhido) {
-  // booleanos sao valores que podem ser apenas true (verdade/sim) / false (mentira/nao)
-  bool? confirmacao;
-
-  while (confirmacao == null) {
-    // enquanto a variavel confirmacao nao tiver um valor, repita o código dentro das chaves:
-
-    print("Deseja continuar com o nome $nomeEscolhido ? (S/N)");
-
-    /// toUpperCase serve para transformar qualquer texto em maísculo, como: 'n' para 'N'
-    var opcao = stdin.readLineSync()?.toUpperCase();
-
-    switch (opcao) {
-      case 'S':
-        confirmacao = true;
-        break;
-      case 'N':
-        confirmacao = false;
-        break;
-      default:
-        print("Escolha alguma das opçoes abaixo:");
-    }
-  }
-
-  return confirmacao;
-}
-
-String escolherNome() {
-  print("Antes de começarmos a aventura, diga o seu nome");
-
-  // stdin serve para ler a entrada padrao, no caso de um pc, seria a digitacao do teclado
-  String? nomeEscolhido = stdin.readLineSync();
-
-  if (nomeEscolhido == null || nomeEscolhido.isEmpty) {
-    print("Seu nome nao pode ser vazio");
-
-    // recursão, a funçao escolherNome chama a si mesma dentro de uma condiçao
-    return escolherNome();
-  }
-
-  var continuarComNome = confirmarNomeEscolhido(nomeEscolhido);
-
-  if (!continuarComNome) {
-    // recursão, a funçao escolherNome chama a si mesma dentro de uma condiçao
-    return escolherNome();
-  }
-
-  return nomeEscolhido;
-}
-
 void main() {
-  var vida = 100.0;
+  // usando lista para dados
+  var personagemLista = [100, "carlos", "espada longa", "espadao curto"];
 
-  print("Seja bem vindo ao RPG");
+  // acessando valores via index
+  var vida = personagemLista[0];
+  var nome = personagemLista[1];
+  var item = personagemLista[2];
 
-  print("Escolha algum dos itens abaixo:");
+  /// mapas
+  /// funciona por chave:valor
+  /// nome de chave sao sempre únicos
+  /// melhor que o array quando você precisa ter dados estruturados
+  /// mais rápido que o array quando você sabe qual chave precisa
+  /// funciona com hashtable
 
-  var nomeEscolhido = escolherNome();
+  var personagemSimples = {
+    "nome": "rully",
+    "vida": 10,
+    "itens": [
+      "espada",
+      "escudo",
+    ],
+  };
 
-  var armaEscolhida = escolherArma();
+  Map personagemComplexo = {
+    "nome": "rully",
+    "vida": 10,
+    "itens": [
+      {
+        "nome": "espada",
+        "dano": 50,
+        "defesa": 5,
+        "durabilidade": 10,
+      },
+      {
+        "nome": "escudo",
+        "dano": 5,
+        "defesa": 80,
+        "durabilidade": 10,
+      }
+    ],
+  };
 
-  print("Parabéns, você escolheu $armaEscolhida");
+  List classesPreDefinidos = <Map<String, dynamic>> [
+    {
+      "nome": "Guerreiro",
+      "vida": 10,
+      "itens": [
+        {
+          "nome": "espada",
+          "dano": 50,
+          "defesa": 5,
+          "durabilidade": 10,
+        },
+        {
+          "nome": "escudo",
+          "dano": 5,
+          "defesa": 80,
+          "durabilidade": 10,
+          
+        }
+      ],
+    },
+    {
+      "nome": "Mago",
+      "vida": 10,
+      "itens": [
+        {
+          "nome": "cajado",
+          "dano": 50,
+          "defesa": 5,
+          "durabilidade": 10,
+        },
+      ],
+    },
+  ];
 
-  var caminhoEscolhido = escolherCaminho();
+// acessando array de itens de dentro dos itens do personagem
+/*
+  var itensDoPersonagem = personagemComplexo["itens"];
+  var primeiroItem = itensDoPersonagem[0];
+  var nomeItem = primeiroItem["nome"];
+*/
+  // lendo dados de um mapa
+  var vidaPersonagem = personagemSimples["vida"];
+  classesPreDefinidos[0]["itens"][1]["nome"] = "batata";
+  //print(classesPreDefinidos);
 
-  print(
-    "Voz misteriosa: - Voce $nomeEscolhido se encontra na entrada de $caminhoEscolhido, utilizando apenas $armaEscolhida",
-  );
+  Map resgatarLista = classesPreDefinidos[0]; //aqui seleciona o guerreiro
+  List resgatarItem = resgatarLista["itens"]; //aqui seleciona o "itens"
+  Map resgatarEscudo = resgatarItem[1];      //aqui seleciona o escudo
+  resgatarEscudo ["passiva"] = "EU DESEJO UM CAFEZIN";
+  print(resgatarEscudo);
+
+  var deletarPassiva = resgatarEscudo.remove("passiva");
+  print(resgatarEscudo);
+
+  return;
+  // escrevendo dados em um mapa
+//////////////////  personagemSimples["vida"] = 100;
+
+  // exemplo: cadastro de usuário com mapa
+
+  var cadastroDeUsuarioVazio = {
+    "nome": null,
+    "sobrenome": null,
+    "dataNascimento": null,
+    "endereco": {
+      "cep": null,
+      "rua": null,
+      "numero": null,
+      "cidade": null,
+      "estado": null,
+    }
+  };
+  var cadastroDeUsuarioComDados = {
+    "nome": "rully",
+    "sobrenome": "alves",
+    "dataNascimento": "10/09/1998",
+    "endereco": {
+      "cep": "24350358",
+      "rua": "rua quatrocentos e doze",
+      "numero": "415",
+      "cidade": "niterói",
+      "estado": "RJ",
+    }
+  };
+
+// acessando dados do mapa
+/*
+  var enderecoComDados = cadastroDeUsuarioComDados["endereco"];
+  var cep = enderecoComDados["cep"];
+*/
 }
+
+
+
+
+
+
+// estruturas de dados part 1
+
+// orientação a objetos
+// try/catch (exceçoes)
+// enum (enumeração)
+// pattern matching
+// records
+// concorrência/paralelismo (de fuder)
+
